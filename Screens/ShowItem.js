@@ -12,7 +12,7 @@ export function ShowItem({navigation}) {
      
       <Button
         title="Go to login"
-        onPress={() => navigation.navigate('LoginScreen')}
+        onPress={() => navigation.navigate('Login Screen')}
       />
    </SafeAreaView>
   );

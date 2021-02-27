@@ -22,7 +22,27 @@ const products = [
   }
 ];
 
-export function Items({navigation}) {
+
+export function Items({route,navigation}) {
+const {apiURI} =route.params; 
+const id = {iditem : 80};
+
+fetch(apiURI+'/items/'+id, {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+.then(response => response.json())
+.then(data => {
+  alert('YAY');
+  console.log('Success:', data);
+})
+.catch((error) => {
+  alert('NAY');
+  console.error('Error:', error);
+});
+
     return (
       <ScrollView
         style={{
@@ -30,9 +50,10 @@ export function Items({navigation}) {
           width: "100%",
           height: "100%",
         }}>
+       
         <Button
           title="Go to login"
-          onPress={() => navigation.navigate('LoginScreen')}
+          onPress={() => navigation.navigate('Login Screen')}
         />
         {
           products.map((item, index) => {

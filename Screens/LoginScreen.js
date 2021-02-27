@@ -1,17 +1,19 @@
 import React,{ useState } from 'react';
 import {SafeAreaView, View,TouchableHighlight,
-        StyleSheet,Text,Button,TextInput} from 'react-native';
+        StyleSheet,Text,Button,TextInput,Alert} from 'react-native';
 
 import { Base64 } from 'js-base64'
 import * as SecureStore from 'expo-secure-store'
+
+
 export function LoginScreen({navigation}) {
-  const [userName, setUserName] = useState("tester");
+  const [userName, setUserName] = useState("tester@tester.com");
   const [password, setPassword] = useState("testerpassword");
   const [token, setToken] = useState(false);
-
+  const [jwt, setJWT] = useState("");
+  
 
 const apiURI="https://thetoriapp.herokuapp.com";
-
 const secureStoreTokenName = "jwttoken";
 
 
@@ -32,7 +34,6 @@ const secureStoreTokenName = "jwttoken";
       console.log("Login successful")
       console.log("Received following JSON");
       console.log(json);
-
       SaveJWTToken(json.token);
     })
     .catch(error => {
@@ -40,18 +41,57 @@ const secureStoreTokenName = "jwttoken";
       console.log(error.message)
     });
   }
+  // Deal with successful login by storing the token into secure store
+
   SaveJWTToken = (responseJWT) => {
-    // Deal with successful login by storing the token into secure store
+    console.log(responseJWT); 
     SecureStore.setItemAsync(secureStoreTokenName, responseJWT)
-      .then(response => {
-        console.log(response);
-        setToken(true);
-        navigation.navigate('Items');
-      })    
+        .then(response => {
+          setToken(true);
+          setJWT(responseJWT);
+        })
+        .catch(error => {
+          console.log("SecureStore error")
+          console.log(error);
+        });
+      }    
+  
+
+  // LOG OUT FUNCTION
+  onLogout = () => {
+    console.log("Logout clicked");
+    console.log(token);
+    setToken(false);
+    SecureStore.deleteItemAsync(secureStoreTokenName);
   }
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View style={ styles.mainview }>
+    {token &&
+     <View style={ styles.mainview } >
+       <Text style={ styles.text }>Hello user</Text>
+        <View >
+       <Button
+       color="red"
+        style={ styles.button }
+        title="Log out"
+        onPress={() => onLogout() }/>
+          </View>
+        <View style={ styles.mainview }>
+      <Button
+        style={ styles.button }
+        title="Create new item"
+        onPress={() => navigation.navigate('NewItem',{
+          apiURI:apiURI,
+          token :jwt,
+        })}/>
+        </View>
+        </View>
+      }
+       </View>
+    <View >
+    {!token && <View>
       <Text style={ styles.text }>Username</Text>
       <TextInput
         style={ styles.input }
@@ -65,25 +105,25 @@ const secureStoreTokenName = "jwttoken";
         value={ password }
         placeholder="password"
         onChangeText={ value => setPassword(value)}
-      />
-      <Button
-        title="Go to items"
-        onPress={() => navigation.navigate('Items')}
-      />
-      <Button
-        title="Create new item"
-        onPress={() => navigation.navigate('NewItem')}
-      />
-      <Button
-        title="Image Test"
-        onPress={() => navigation.navigate('ImageTest')}
-      />
+      /> 
       <TouchableHighlight onPress={ () => loginClick() }>
         <View style={ styles.primaryButton }>
-          <Text style={ styles.primaryButtonText }>Login</Text>
+        <Text style={ styles.primaryButtonText }>Login</Text>
         </View>
       </TouchableHighlight>
-      <Button title="Sign up" color="#000000" onPress={ () => props.navigation.navigate('Signup') } />
+       <Button title="Sign up" color="#000000" onPress={ () => navigation.navigate('Register',{apiURI:apiURI}) } />
+    </View>
+      }
+    </View  > 
+      <View style={ styles.mainview}>
+        <Button
+        title="Go to items"
+        color="#841584"
+        onPress={() => navigation.navigate('Items',{
+          apiURI:apiURI
+        })}
+      />
+      </View>
    </SafeAreaView>
   );
 }
@@ -127,9 +167,16 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   primaryButtonText: {
-    color: 'white',
+    color: 'red',
     fontSize: 20
-
+  },
+  mainview: {
+    height: 60,
+    width: 400,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
+    marginBottom: 50
   }
 });
 
