@@ -32,8 +32,6 @@ const secureStoreTokenName = "jwttoken";
     })
     .then(json => {
       console.log("Login successful")
-      console.log("Received following JSON");
-      console.log(json);
       SaveJWTToken(json.token);
     })
     .catch(error => {
@@ -44,7 +42,6 @@ const secureStoreTokenName = "jwttoken";
   // Deal with successful login by storing the token into secure store
 
   SaveJWTToken = (responseJWT) => {
-    console.log(responseJWT); 
     SecureStore.setItemAsync(secureStoreTokenName, responseJWT)
         .then(response => {
           setToken(true);
