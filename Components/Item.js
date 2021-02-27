@@ -1,30 +1,26 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
-import { Card, Button } from 'react-native-elements';
+import { Card, Button,Viev,Image } from 'react-native-elements';
 
 
-export default function Item(props) {
-    console.log(props);
-      return (
-        <Card>
-            <Text style={{marginBottom: 10, marginTop: 20 }} h2>
-                {props.item.name}
-            </Text>
-            <Text style={styles.price} h4>
-                $ {props.item.price}
-            </Text>
-            <Text h6 style={styles.description}>
-            </Text>
-            <Button
-            type="clear"
-            title='Buy now'
-            onPress={() => props.navigation.navigate('Details', {
-                name: props.item.name,
-                price: props.item.price
-            })} />
-        </Card>
-      );
-    };
+export default function Item(Item) {
+    console.log(Item);
+       return(
+       
+                    <Card key={Item.iditem}>
+                        <Text>{Item.title}</Text>
+                        <Text>{Item.description}</Text>
+                        <Text>{Item.price}</Text>
+                        <Text>{Item.location}</Text>
+                        <Text>{Item.category}</Text>
+                        <Text>{Item.deliverytype}</Text>
+                        <Text>{Item.dateposted}</Text>
+                        <Image source={{uri: Item.images[0]}} style={ { width: 100, height: 100 } }></Image>
+                    </Card>
+           
+           )
+       
+}
 
 
 const styles = StyleSheet.create({
