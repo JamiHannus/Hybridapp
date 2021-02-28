@@ -55,20 +55,16 @@ const [location, setLocation] = useState('');
   }
     return (
       
-      <ScrollView
-        style={{
-          flexGrow: 0,
-          width: "100%",
-          height: "100%",
-        }}>
-        <Button
+      <ScrollView style={{ flex:1,marginTop: 10, width:"100%", flexDirection:"column"}}> 
+       <Button
           title="Go to login"
           onPress={() => navigation.navigate('Login Screen')}
-        />
-        <View style={{ alignItems: 'center', flex: 1, marginTop: 30, flexDirection:"column"}}>  
-        <Text>Search by category</Text>
+        /> 
+      <View style={styles.view}>
+        
+        <Text  style={styles.text} >Search by category</Text>
         <Picker 
-        style={{height: 50, width:200} }
+        style= {styles.picker }
         selectedValue={category}
         onValueChange={(itemValue) =>
           setCategory(itemValue)}>
@@ -79,33 +75,31 @@ const [location, setLocation] = useState('');
           <Picker.Item label="Electronics" value="Electronics" />
           <Picker.Item label="Other" value="Other" />
           </Picker>
-          <Text>Search by location</Text>
+          <Text style={styles.text}>Search by location</Text>
           <TextInput
-        style={ styles.input }
-        value={ location }
-        placeholder="Can be empty"
-        onChangeText={ value => setLocation(value)}
-      />
-    <Button    
-       title="Get some Items"
-       onPress={() => ItemFetch()}
-     />
-     { hasdata && allItems.map(item =><Item {...item}></Item>)}
+          style={ styles.input }
+          value={ location }
+          placeholder="Can be empty"
+          onChangeText={ value => setLocation(value)}
+         />
+        <Button title="Get some Items" onPress={() => ItemFetch()}/>     
+        { hasdata && allItems.map((item,index) =><Item {...item} key={index}></Item>)}
       </View>
-      </ScrollView>
+    </ScrollView>
     )
   };
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: 'rgb(51, 153, 255)',
+    backgroundColor: '#fff',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
-  header: {
-    fontSize: 40,
-    marginBottom: 20,
-    color: 'white'
+  picker:{
+    height: 100,
+    width: '90%',
+    borderWidth: 1,
+    borderRadius: 20,
   },
   text: {
     fontSize: 20,
@@ -122,28 +116,12 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 20
   },
-  primaryButton: {
-    backgroundColor: 'rgb(0, 153, 51)',
-    height: 60,
-    width: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: 'black',
-    borderWidth: 2,
-    marginTop: 20,
-    marginBottom: 10
-  },
-  primaryButtonText: {
-    color: 'white',
-    fontSize: 20
-  },
-  scrollView: {
-    marginHorizontal: 1,
-  },
   view:{
-    borderWidth: 1,
-    borderRadius: 4 ,
-    marginTop: 20,
-    marginBottom: 10
-  }
+    flex: 1,
+    width:"100%",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    paddingTop: 50,
+    flexDirection:"column",
+  },
     })
