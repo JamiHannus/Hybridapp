@@ -31,7 +31,8 @@ const [location, setLocation] = useState('');
       }
       else{
           //both have changed
-          address=apiURI+'/items/multi/'+location/+category
+          let add=location+'/'+category;
+          address=apiURI+'/items/multi/'+add;
       }
     console.log(address);
     fetch(address, {

@@ -68,30 +68,27 @@ const secureStoreTokenName = "jwttoken";
     {token &&
      <View style={ styles.mainview } >
        <Text style={ styles.text }>Hello user</Text>
-        <View >
        <Button
-       color="red"
-        style={ styles.button }
+        color="red"
         title="Log out"
         onPress={() => onLogout() }/>
-          </View>
-        <View style={ styles.mainview }>
-      <Button
-        style={ styles.button }
-        title="Create new item"
-        onPress={() => navigation.navigate('NewItem',{
-          apiURI:apiURI,
-          token :jwt,
-        })}/>
-        <Button
-        style={ styles.button }
-        title="My items"
-        onPress={() => navigation.navigate('ShowItem',{
-          apiURI:apiURI,
-          token :jwt,
-        })}/>
+        <View style={ styles.mainview } >
+          <Button
+            title="Create new item"
+            onPress={() => navigation.navigate('NewItem',{
+              apiURI:apiURI,
+              token :jwt,
+            })}/>   
         </View>
+        <View style={ styles.mainview } >
+                <Button
+                title="My items"
+                onPress={() => navigation.navigate('ShowItem',{
+                  apiURI:apiURI,
+                  token :jwt,
+                })}/>   
         </View>
+      </View>
       }
        </View>
     <View >
@@ -170,18 +167,20 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10
   },
-  primaryButtonText: {
+   primaryButtonText: {
     color: 'red',
     fontSize: 20
   },
   mainview: {
     flex:1,
     height: 60,
-    width: 500,
+    width: 200,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
+    marginLeft:25,
+    marginRight:25
   }
 });
 

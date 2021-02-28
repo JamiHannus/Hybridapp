@@ -60,7 +60,7 @@ export function Register({route,navigation}) {
         style={ styles.input }
         value={ email }
         maxLength = {245}
-        placeholder="test@email.com"
+        placeholder=""
         clearTextOnFocus= {true}
         keyboardType={'email-address'}
         onChangeText={ value => setEmail(value)}

@@ -22,33 +22,33 @@ const [deliverytype, setDeliveryType] = useState(item.deliverytype);
 
 
 
-async function sendData(url) {
+async function sendData() {
  
-  const formData  = new FormData();
-  formData.append('title', title);
-  formData.append('description',description );
-  formData.append('category',category );
-  formData.append('location',location );
-  formData.append('deliverytype',deliverytype );
-  formData.append('price', price);
+  let data = {
+      'title': title,
+      'description': description,
+      'category': category,
+      'location': location,
+      'deliverytype': deliverytype,
+      'price': price,
+      'iditem': item.iditem
+  };
   
 
-console.log(formData);
-console.log(url);
-  const response = await fetch(url+'/items', {
-    method: 'POST',
+  const response = await fetch(apiURI+'/items', {
+    method: 'PUT',
     headers: {
-      "Authorization": 'Bearer ' + token},
-    body: formData
+      "Authorization": 'Bearer ' + token,
+      'Content-Type': 'application/json'},
+    body: JSON.stringify(data),
   })
   .then(response => { 
     if (response.ok == false) {
-      throw new Error("HTTP Code " + response.status + "- " + JSON.stringify(response));
+      throw new Error("HTTP Code " + response.status);
     }
-    return response.json();
+    return response;
   })
   .then(res => {
-    console.log(res);
     console.log("ok")
     alert("Item is updated")
    
@@ -62,8 +62,7 @@ console.log(url);
 
 
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width:300,}}>
-        <Text>Edit your item  </Text>
+    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <ScrollView style={styles.scrollView}>
       <Text style={ styles.text }>Item title</Text>
       <TextInput
@@ -121,14 +120,18 @@ console.log(url);
           <Picker.Item label="Pick up" value="Pick up" />
           </Picker>
         </View>
-      <Button
+        <View>
+        <Button
         title="Save edit"
-        onPress={() => sendData(apiURI)}
-      />  
-     <Button
+        onPress={() => sendData()}/>  
+        </View>
+        <View> 
+        <Button
         title="Go to login"
-        onPress={() => navigation.navigate('Login Screen')}
-      />  
+        onPress={() => navigation.navigate('Login Screen')}/>              
+        </View>
+      
+    
     </ScrollView>
    </SafeAreaView>
   );
@@ -161,23 +164,14 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 20
       },
-      primaryButton: {
-        backgroundColor: 'rgb(0, 153, 51)',
-        height: 60,
-        width: 200,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: 'black',
-        borderWidth: 2,
-        marginTop: 20,
-        marginBottom: 10
-      },
-      primaryButtonText: {
-        color: 'white',
-        fontSize: 20
-      },
       scrollView: {
+        width: 280,
+        flex:1,
         marginHorizontal: 1,
+        marginTop: 10,
+        marginBottom: 10,
+        marginLeft:25,
+        marginRight:25
       },
       view:{
         borderWidth: 1,
