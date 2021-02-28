@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     height: 40,
-    width: '90%',
+    width: 300,
     backgroundColor: 'white',
     textAlign: 'center',
     fontSize: 18,
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   primaryButton: {
     backgroundColor: 'rgb(0, 153, 51)',
     height: 60,
-    width: 200,
+    width: 300,
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: 'black',
@@ -175,12 +175,13 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   mainview: {
+    flex:1,
     height: 60,
-    width: 400,
+    width: 500,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50,
-    marginBottom: 50
+    marginTop: 10,
+    marginBottom: 10
   }
 });
 

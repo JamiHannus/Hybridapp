@@ -5,6 +5,7 @@ import {ShowItem} from './Screens/ShowItem';
 import {NewItem} from './Screens/NewItem';
 import {ImageTest} from './Screens/ImageTest';
 import {Register} from './Screens/Register';
+import {EditItem} from './Screens/EditItem';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -23,8 +24,10 @@ return (
       <Stack.Screen name="NewItem" component={NewItem} />
       <Stack.Screen name="ImageTest" component={ImageTest} />
       <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="EditItem" component={EditItem} />
     </Stack.Navigator>
   </NavigationContainer>
 );
 }
 
+EditItem

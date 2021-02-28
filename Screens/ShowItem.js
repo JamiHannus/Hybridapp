@@ -9,10 +9,6 @@ export function ShowItem({route,navigation}) {
 useEffect(() => { 
   ItemFetch()
 }, []);
-
-
-
-
             const [allItems, SetAllItems] = useState('');
             const [hasdata, SetHasdata] = useState(false);
 
@@ -88,6 +84,8 @@ const itemDelete = (id) =>{
  ItemFetch();   
 };
 
+
+
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Button
@@ -105,7 +103,7 @@ const itemDelete = (id) =>{
         <View key={index}>
           <Item {...item}></Item>
           <Button title="del" onPress={()=>{createTwoButtonAlert(item.iditem)}}></Button>
-          <Button title="edit"onPress={()=>{console.log(item.iditem)}}></Button>
+          <Button title="edit"onPress={() => navigation.navigate('EditItem',{apiURI:apiURI,token :token, item:item})}></Button>
         </View>)}
        </View>
      </ScrollView>

@@ -1,13 +1,26 @@
 import React,{ useState } from 'react';
 import {SafeAreaView, StyleSheet,Text,Button,TextInput,ScrollView,View} from 'react-native';
-import ImageSelector from '../Components/ImageSelector';
 import {Picker} from '@react-native-picker/picker';
 
 
 
-export function NewItem({route,navigation}) {
+export function EditItem({route,navigation}) {
 const {token} =route.params;
 const {apiURI} =route.params;
+const {item} =route.params;
+console.log(item)
+console.log(token)
+console.log(apiURI)
+
+
+const [title, setTitle] = useState(item.title);
+const [description, setDescription] = useState(item.description);
+const [category, setCategory] = useState(item.category);
+const [location, setLocation] = useState(item.location);
+const [price, setPrice] = useState(item.price+'');
+const [deliverytype, setDeliveryType] = useState(item.deliverytype);
+
+
 
 async function sendData(url) {
  
@@ -18,13 +31,7 @@ async function sendData(url) {
   formData.append('location',location );
   formData.append('deliverytype',deliverytype );
   formData.append('price', price);
-  picture.forEach(image =>{
-    formData.append('image',{
-      uri:image,
-      type:'image/jpg',
-      name:'image'
-    });
-  })
+  
 
 console.log(formData);
 console.log(url);
@@ -43,7 +50,7 @@ console.log(url);
   .then(res => {
     console.log(res);
     console.log("ok")
-    alert("Item is posted")
+    alert("Item is updated")
    
   })
   .catch(error => {
@@ -53,22 +60,10 @@ console.log(url);
   });
 }
 
-const [title, setTitle] = useState("Chair");
-const [description, setDescription] = useState("small red chair");
-const [category, setCategory] = useState("Other");
-const [location, setLocation] = useState("Oulu");
-const [price, setPrice] = useState("10");
-const [deliverytype, setDeliveryType] = useState("Pick up");
-const [picture , setPictures] = useState([]);
 
-
-//get the picture uri from image selector and save it in state
-const handleCallback = (childData) =>{
-  var joined =[...picture,childData];
-  setPictures(joined);
-}
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width:300,}}>
+        <Text>Edit your item  </Text>
         <ScrollView style={styles.scrollView}>
       <Text style={ styles.text }>Item title</Text>
       <TextInput
@@ -93,9 +88,9 @@ const handleCallback = (childData) =>{
       />
       <Text style={ styles.text }>Price in Euros</Text>
       <TextInput
+        keyboardType = 'numeric'
         style={ styles.input }
         value={ price }
-        keyboardType = 'numeric'
         placeholder="100 euros"
         onChangeText={ value => setPrice(value)}
       />
@@ -126,9 +121,8 @@ const handleCallback = (childData) =>{
           <Picker.Item label="Pick up" value="Pick up" />
           </Picker>
         </View>
-      <ImageSelector handlepictures ={handleCallback} ></ImageSelector>
       <Button
-        title="Submit"
+        title="Save edit"
         onPress={() => sendData(apiURI)}
       />  
      <Button
