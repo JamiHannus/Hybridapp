@@ -83,6 +83,13 @@ const secureStoreTokenName = "jwttoken";
           apiURI:apiURI,
           token :jwt,
         })}/>
+        <Button
+        style={ styles.button }
+        title="My items"
+        onPress={() => navigation.navigate('ShowItem',{
+          apiURI:apiURI,
+          token :jwt,
+        })}/>
         </View>
         </View>
       }

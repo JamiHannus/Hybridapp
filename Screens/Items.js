@@ -12,7 +12,6 @@ const {apiURI} =route.params;
 
 const [allItems, SetAllItems] = useState('');
 const [hasdata, SetHasdata] = useState(false);
-const [id, Setid] = useState(73);
 const [category, setCategory] = useState(0);  
 const [location, setLocation] = useState('');  
 

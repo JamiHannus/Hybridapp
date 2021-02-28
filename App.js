@@ -19,7 +19,7 @@ return (
     <Stack.Navigator initialRouteName="Login Screen">
       <Stack.Screen name="Login Screen" component={LoginScreen} />
       <Stack.Screen name="Items" component={Items} />
-      <Stack.Screen name="Item" component={ShowItem} />
+      <Stack.Screen name="ShowItem" component={ShowItem} />
       <Stack.Screen name="NewItem" component={NewItem} />
       <Stack.Screen name="ImageTest" component={ImageTest} />
       <Stack.Screen name="Register" component={Register} />
