@@ -10,3 +10,4 @@ Link for the Api document: https://app.swaggerhub.com/apis/ParasApi/Toriapi/1.1
 
 Link for Youtube video of the "working" version https://youtu.be/XapVWWHDf4o
 
+Repo for API git https://github.com/t9haja00/WebInterface_API_task
